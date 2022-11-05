@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="{{ asset("css/body_style.css") }}">
+	<link rel="stylesheet" href="{{ asset("css/header_style.css") }}">
+	<link rel="stylesheet" href="{{ asset("css/connexion_case_style.css") }}">
+</head>
+<body>
+	<header>
+		<div class="header_bar">
+			<a href="{{ path('app_home') }}"><img class="header_logo" src="{{ asset("img/M.png") }}" alt="Logo"></a>
+			<div class="recherche">
+				<form action="recherche.php" class="form_recherche" method="GET">
+					<div class="recherche_bar_loupe">
+						<!--<div class="div_loupe">-->
+							
+							<button class="button_loupe" type="submit"><img type="image" class="loupe" src="{{ asset("img/loupe.png") }}" alt="loupe"></button>
+							<input class="search_bar" type="text" name="recherche">
+						<!--</div>-->
+					</div>
+				</form>
+			</div>
+			<div class="connexion">
+				<p class="info_session">
+    				{% if isConnected %}
+        				<ul class=\"listeconsole\">
+							<li class=\"li_profil\">
+								<div class=\"ongletPROFIL\">
+									PSEUDO_USER			
+								</div>
+								<div class=\"deroulantPROFIL\">
+									<ul class=\"listeoptionPROFIL\">
+										<a href=\"profil_user.php\" class=\"link_profil\"><li class=\"option\">Mon profil</li></a>
+										<a href=\"collection_user.php\" class=\"link_profil\"><li class=\"option\">Ma collection</li></a>
+										<a href=\"../PHP/deconnexion_user.php\" class=\"link_profil\"><li class=\"option\">Se deconnecter</li></a>
+									</ul>
+								</div>
+							</li>
+						</ul>
+       				{% else %}
+			        	<a class=\"link_con_ins\" href=\"connexion.php\">Connexion</a>
+							<span>|</span>
+						<a class=\"link_con_ins\" href=\"inscription.php\">Inscription</a>
+        			{% endif %}
+    			</p>
+			</div>
+		</div>
+	</header>
+	<nav class="nav1">
+		<ul class="listeconsole">
+			<li class="li_console">
+				<div class="ongletPS">
+					PlayStation
+				</div>
+				<div class="deroulantPS">
+					<ul class="listeoption">
+						<a class="link_console" href="list_game.php?type=PS1"><li class="option">PS1</li></a>
+						<a class="link_console" href="list_game.php?type=PS2"><li class="option">PS2</li></a>
+						<a class="link_console" href="list_game.php?type=PS3"><li class="option">PS3</li></a>
+						<a class="link_console" href="list_game.php?type=PS4"><li class="option">PS4</li></a>
+						<a class="link_console" href="list_game.php?type=PS5"><li class="option">PS5</li></a>
+					</ul>
+				</div>
+			</li>
+			<li class="li_console">
+				<div class="ongletXBOX">
+					Xbox
+				</div>
+				<div class="deroulantXBOX">
+					<ul class="listeoption">
+						<a class="link_console" href="list_game.php?type=Xbox"><li class="option">Xbox</li></a>
+						<a class="link_console" href="list_game.php?type=Xbox360"><li class="option">Xbox 360</li></a>
+						<a class="link_console" href="list_game.php?type=XboxOne"><li class="option">Xbox One</li></a>
+						<a class="link_console" href="list_game.php?type=XboxSeriesX"><li class="option">Xbox Series X</li></a>
+					</ul>
+				</div>
+			</li>
+			<li class="li_console">
+				<div class="ongletNINTENDO">
+					Nintendo
+				</div>
+				<div class="deroulantNINTENDO">
+					<ul class="listeoption">
+						<a class="link_console" href="list_game.php?type=Nintendo DS"><li class="option">DS</li></a>
+						<a class="link_console" href="list_game.php?type=3DS"><li class="option">3DS</li></a>
+						<a class="link_console" href="list_game.php?type=Wii"><li class="option">Wii</li></a>
+						<a class="link_console" href="list_game.php?type=WiiU"><li class="option">Wii U</li></a>
+						<a class="link_console" href="list_game.php?type=Switch"><li class="option">Switch</li></a>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</nav>
+	<script src="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/js/axentix.min.js"></script>
+    {% block javascripts %}{% endblock %}
+    <script src="{{ asset('js/menu.js') }}"></script>
+</body>
+</html>
