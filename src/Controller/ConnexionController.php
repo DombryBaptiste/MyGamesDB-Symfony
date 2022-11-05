@@ -16,8 +16,20 @@ class ConnexionController extends AbstractController
     {
         $session = $request->getSession();
         $session->set('isConnected', true);
-        $dataSession = $session->get('isConnected');
-        return $this->render('home/index.html.twig', ['isConnected' => $dataSession]);
+        $isConnected = $session->get('isConnected');
+        return $this->render('home/index.html.twig', ['isConnected' => $isConnected]);
         
+    }
+
+    public function disconect(Request $request): Response 
+    {
+        $session = $request->getSession();
+        $isConnected = $session->get('isConnected');
+        if($isConnected) {
+            $session->set('isConnected', false);
+             return $this->render('home/index.html.twig', ['isConnected' => $isConnected]);
+        } else {
+            return $this->redirectToRoute('home/index.html.twig', ['isConnected' => $isConnected]);
+        }
     }
 }

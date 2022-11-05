@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+	{% block head %}
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<link rel="stylesheet" href="{{ asset("css/body_style.css") }}">
+	<link rel="stylesheet" href="{{ asset("css/inscription_form_style.css") }}">
 	<link rel="stylesheet" href="{{ asset("css/header_style.css") }}">
 	<link rel="stylesheet" href="{{ asset("css/connexion_case_style.css") }}">
+	{% endblock %}
 </head>
 <body>
+	{% block body %}
 	<header>
 		<div class="header_bar">
 			<a href="{{ path('app_home') }}"><img class="header_logo" src="{{ asset("img/M.png") }}" alt="Logo"></a>
@@ -25,28 +28,26 @@
 				</form>
 			</div>
 			<div class="connexion">
-				<p class="info_session">
-    				{% if isConnected %}
-        				<ul class=\"listeconsole\">
-							<li class=\"li_profil\">
-								<div class=\"ongletPROFIL\">
-									PSEUDO_USER			
-								</div>
-								<div class=\"deroulantPROFIL\">
-									<ul class=\"listeoptionPROFIL\">
-										<a href=\"profil_user.php\" class=\"link_profil\"><li class=\"option\">Mon profil</li></a>
-										<a href=\"collection_user.php\" class=\"link_profil\"><li class=\"option\">Ma collection</li></a>
-										<a href=\"../PHP/deconnexion_user.php\" class=\"link_profil\"><li class=\"option\">Se deconnecter</li></a>
-									</ul>
-								</div>
-							</li>
-						</ul>
-       				{% else %}
-			        	<a class=\"link_con_ins\" href=\"connexion.php\">Connexion</a>
+    			{% if isConnected %}
+        			<ul class="listeprofil">
+						<li class="li_profil">
+							<div class="ongletPROFIL">
+								PSEUDO_USER			
+							</div>
+							<div class="deroulantPROFIL">
+								<ul class="listeoptionPROFIL">
+									<a href="profil_user.php" class="link_profil"><li class="option">Mon profil</li></a>
+									<a href="collection_user.php" class="link_profil"><li class="option">Ma collection</li></a>
+									<a href="{{ path('app_disconect_user') }}" class="link_profil"><li class="option">Se deconnecter</li></a>
+								</ul>
+							</div>
+						</li>
+					</ul>
+       			{% else %}
+			        <a class="link_con_ins" href="{{ path('app_connexion_user') }}">Connexion</a>
 							<span>|</span>
-						<a class=\"link_con_ins\" href=\"inscription.php\">Inscription</a>
-        			{% endif %}
-    			</p>
+					<a class="link_con_ins" href="{{ path('app_inscription_user') }}">Inscription</a>
+        		{% endif %}
 			</div>
 		</div>
 	</header>
@@ -98,5 +99,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/js/axentix.min.js"></script>
     {% block javascripts %}{% endblock %}
     <script src="{{ asset('js/menu.js') }}"></script>
+    {% endblock %}
 </body>
 </html>

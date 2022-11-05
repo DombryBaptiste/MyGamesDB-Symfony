@@ -1,3 +1,8 @@
+a{
+	display: inline-flex;
+}
+
+
 .header_bar{
 	width: 100%;
 	display: inline-flex;
@@ -37,10 +42,6 @@
 }
 .loupe {
 	height: 35px;
-	/*position:  relative;
-
-	top: 7px;
-	padding:  0 10px;*/
 }
 
 .recherche{
@@ -113,16 +114,8 @@ ul{
 	position: absolute;
 	margin-left: 80px;
 }
-.deroulantPROFIL {
-	background-color: rgb(36, 49, 115);
-	height: 0px;
-	overflow: hidden;
-	opacity: 1;
-	position: absolute;
-	margin-left: 80px;
-}
 
-.listeoption, .listeoptionPROFIL{
+.listeoption {
 	display:  inline-flex;
 	flex-direction: column;
 }
@@ -134,7 +127,7 @@ ul{
 	left :-19px;
 }
 
-.ongletPS, .ongletXBOX, .ongletNINTENDO, .ongletPROFIL{
+.ongletPS, .ongletXBOX, .ongletNINTENDO {
 	margin: 0 100px;
 	font-weight: bold;
 	font-size: 25px;

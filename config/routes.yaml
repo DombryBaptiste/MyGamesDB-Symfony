@@ -9,3 +9,11 @@ app_home:
 app_connexion_user:
     path: /connexion
     controller: App\Controller\ConnexionController::index
+
+app_disconect_user:
+    path: /disconnect
+    controller: App\Controller\ConnexionController::disconect
+
+app_inscription_user:
+    path: /inscription
+    controller: App\Controller\InscriptionController::inscription

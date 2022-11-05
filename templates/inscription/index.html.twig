@@ -1,0 +1,39 @@
+{% extends 'header.html.twig' %}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/body_style.css") }}">
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <div class="container_form">
+            <h1 class="h1">Inscription</h1>
+            {{ form_start(form) }}
+            <div class="row_form">
+                {{form_label(form.pseudo)}}
+                {{form_widget(form.pseudo)}}
+            </div>
+            <div class="row_form">
+                {{form_label(form.email)}}
+                {{form_widget(form.email)}}
+            </div>
+            <div class="row_form">
+                {{form_label(form.email2)}}
+                {{form_widget(form.email2)}}
+            </div>
+            <div class="row_form">
+                {{form_label(form.password)}}
+                {{form_widget(form.password)}}
+            </div>
+            <div class="row_form">
+                {{form_label(form.password2)}}
+                {{form_widget(form.password2)}}
+            </div>
+            <div class="row_form_submit">
+                <input type="submit" value="Inscription">
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+

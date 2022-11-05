@@ -1,0 +1,52 @@
+.connexion{
+	margin-left: 70px;
+	color: white;
+	font-weight: bold;
+	font-size: 25px;
+
+}
+
+.listeprofil{
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+	padding: 0px;
+}
+
+.ongletPROFIL{
+	margin: 0 100px;
+	font-weight: bold;
+	font-size: 25px;
+}
+
+.deroulantPROFIL {
+	background-color: rgb(36, 49, 115);
+	height: 0px;
+	overflow: hidden;
+	opacity: 1;
+	position: absolute;
+	margin-left: 80px;
+}
+
+.listeoptionPROFIL{
+	display:  inline-flex;
+	flex-direction: column;
+}
+
+.link_profil:link{
+	color: white;
+	text-decoration: none;
+}
+
+.link_profil:visited{
+	color:white;
+	text-decoration: none;
+}
+
+.link_con_ins:hover{
+	color: yellow;
+}
+.link_con_ins{
+	color: white;
+	text-decoration: none;
+}
