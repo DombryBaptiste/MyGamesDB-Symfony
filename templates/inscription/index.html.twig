@@ -9,6 +9,7 @@
         <div class="container_form">
             <h1 class="h1">Inscription</h1>
             {{ form_start(form) }}
+            {{ form_errors(form)}}
             <div class="row_form">
                 {{form_label(form.pseudo)}}
                 {{form_widget(form.pseudo)}}

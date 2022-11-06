@@ -4,8 +4,9 @@
 	{% block head %}
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<title>{% block title %}{% endblock %}</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="{{ asset("css/body_style.css") }}">
 	<link rel="stylesheet" href="{{ asset("css/inscription_form_style.css") }}">
 	<link rel="stylesheet" href="{{ asset("css/header_style.css") }}">
 	<link rel="stylesheet" href="{{ asset("css/connexion_case_style.css") }}">
@@ -18,12 +19,9 @@
 			<a href="{{ path('app_home') }}"><img class="header_logo" src="{{ asset("img/M.png") }}" alt="Logo"></a>
 			<div class="recherche">
 				<form action="recherche.php" class="form_recherche" method="GET">
-					<div class="recherche_bar_loupe">
-						<!--<div class="div_loupe">-->
-							
-							<button class="button_loupe" type="submit"><img type="image" class="loupe" src="{{ asset("img/loupe.png") }}" alt="loupe"></button>
-							<input class="search_bar" type="text" name="recherche">
-						<!--</div>-->
+					<div class="recherche_bar_loupe">	
+						<button class="button_loupe" type="submit"><img type="image" class="loupe" src="{{ asset("img/loupe.png") }}" alt="loupe"></button>
+						<input class="search_bar" type="text" name="recherche">
 					</div>
 				</form>
 			</div>
@@ -99,6 +97,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/js/axentix.min.js"></script>
     {% block javascripts %}{% endblock %}
     <script src="{{ asset('js/menu.js') }}"></script>
+    <p class="info_session">
+		{% if session_error is defined %}
+			{{ session_error }}
+		{%  endif  %}
+	</p>
     {% endblock %}
 </body>
 </html>
