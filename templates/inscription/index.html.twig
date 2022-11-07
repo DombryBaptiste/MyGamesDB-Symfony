@@ -1,7 +1,7 @@
 {% extends 'header.html.twig' %}
 {% block head %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset("css/body_style.css") }}">
+    <link rel="stylesheet" href="{{ asset("css/inscription_form_style.css") }}">
 {% endblock %}
 {% block body %}
     {{ parent() }}
@@ -19,16 +19,16 @@
                 {{form_widget(form.email)}}
             </div>
             <div class="row_form">
-                {{form_label(form.email2)}}
-                {{form_widget(form.email2)}}
+                {{form_label(form.emailConfirm)}}
+                {{form_widget(form.emailConfirm)}}
             </div>
             <div class="row_form">
                 {{form_label(form.password)}}
                 {{form_widget(form.password)}}
             </div>
             <div class="row_form">
-                {{form_label(form.password2)}}
-                {{form_widget(form.password2)}}
+                {{form_label(form.passwordConfirm)}}
+                {{form_widget(form.passwordConfirm)}}
             </div>
             <div class="row_form_submit">
                 <input type="submit" value="Inscription">

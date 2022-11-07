@@ -7,7 +7,7 @@
 	<title>{% block title %}{% endblock %}</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="{{ asset("css/body_style.css") }}">
-	<link rel="stylesheet" href="{{ asset("css/inscription_form_style.css") }}">
+	
 	<link rel="stylesheet" href="{{ asset("css/header_style.css") }}">
 	<link rel="stylesheet" href="{{ asset("css/connexion_case_style.css") }}">
 	{% endblock %}
@@ -30,7 +30,9 @@
         			<ul class="listeprofil">
 						<li class="li_profil">
 							<div class="ongletPROFIL">
-								PSEUDO_USER			
+								{% if userPseudo is defined %}
+									{{ userPseudo }}
+								{% endif %}			
 							</div>
 							<div class="deroulantPROFIL">
 								<ul class="listeoptionPROFIL">
@@ -98,8 +100,8 @@
     {% block javascripts %}{% endblock %}
     <script src="{{ asset('js/menu.js') }}"></script>
     <p class="info_session">
-		{% if session_error is defined %}
-			{{ session_error }}
+		{% if form_return is defined %}
+			{{ form_return }}
 		{%  endif  %}
 	</p>
     {% endblock %}

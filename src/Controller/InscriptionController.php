@@ -17,7 +17,6 @@ class InscriptionController extends AbstractController
     public function inscription(Request $request, EntityManagerInterface $em): Response
     {
         $session = $request->getSession();
-        $session->set('session_error', "ERREUR FATALE");
         $isConnected = $session->get('isConnected');
         if($isConnected) {
              return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected]);
@@ -29,12 +28,12 @@ class InscriptionController extends AbstractController
                 ->add('email', EmailType::class, 
                     ['label' => 'Email :',
                     'row_attr' => ['class' => 'rowForm']])
-                ->add('email2', EmailType::class, 
+                ->add('emailConfirm', EmailType::class, 
                     ['label' => 'Confirmer email :',
                     'row_attr' => ['class' => 'rowForm']])
                 ->add('password', PasswordType::class, ['label' => 'Mot de passe :',
                     'row_attr' => ['class' => 'rowForm']])
-                ->add('password2', PasswordType::class, ['label' => 'Confirmer Mot de passe :',
+                ->add('passwordConfirm', PasswordType::class, ['label' => 'Confirmer Mot de passe :',
                     'row_attr' => ['class' => 'rowForm']])
                 ->getForm()
             ;
@@ -43,22 +42,52 @@ class InscriptionController extends AbstractController
 
             if($form->isSubmitted() && $form->isValid()){
                 $data = $form->getData();
-                //dd($data);
-                $user = new User;
-                $user->setPseudo($data['pseudo']);
-                $user->setEmail($data['email']);
-                $user->setPassword(sha1($data['password']));
-                $em->persist($user);
-                $em->flush();
-                return $this->redirectToRoute('app_home');
+
+                $newUserPseudo = $data['pseudo'];
+                $newUserEmail = $data['email'];
+                $newUserEmailConfirm = $data['emailConfirm'];
+                $newUserPassword = $data['password'];
+                $newUserPasswordConfirm = $data['passwordConfirm'];
+
+                if($newUserEmail == $newUserEmailConfirm){
+                    if($newUserPassword == $newUserPasswordConfirm){
+                        if(!$this->isUsedEmail($em, $data)) {
+                            $user = new User;
+                            $this->initializeUser($user, $data);
+                            $em->persist($user);
+                            $em->flush();
+                            $session->set('Pseudo', $newUserPseudo);
+                            return $this->render('home/index.html.twig', ['isConnected' => $isConnected]);
+                        } else {
+                            return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'L\'email est déja pris.']);
+                        }                
+                    } else {
+                        return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'Les deux mots de passes ne correspondent pas.']);
+                    }
+                } else {
+                    return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'Les deux emails ne correspondent pas.']);
+                }
             } else {
-                return $this->render(
-                    'inscription/index.html.twig',
-                   ['isConnected' => $isConnected,
-                    'form' => $form->createView(),
-                    'session_error' => 'ERREUR FATALE'
-                   ]);
+                return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'formualire non soumis']);
             }
         }
+    }
+
+    // OUTILS
+
+    private function initializeUser(User $user, Array $data){
+        $user->setPseudo($data['pseudo']);
+        $user->setEmail($data['email']);
+        $user->setPassword(sha1($data['password']));
+    }
+
+    private function isUsedEmail(EntityManagerInterface $em, Array $data): bool{
+        $repo = $em->getRepository(User::class);
+        $user = $repo->findOneBy(['email' => $data['email']]);
+        if(isset($user)){
+            return true;
+        } else {
+            return false;
+        } 
     }
 }
