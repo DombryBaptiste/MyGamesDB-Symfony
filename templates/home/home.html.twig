@@ -1,7 +1,15 @@
 {% extends 'header.html.twig' %}
-
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/home_style.css") }}">
+{% endblock %}
 {% block body %}
 {{ parent() }}
+	<div class="last_game_added">
+		<p class="text"> Derniers jeux ajoutés</p>
+		<div class="all_games">
 
+		</div>
+	</div>
 {% endblock %}
 
