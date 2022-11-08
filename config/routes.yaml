@@ -17,3 +17,11 @@ app_disconect_user:
 app_inscription_user:
     path: /inscription
     controller: App\Controller\InscriptionController::inscription
+
+app_all_games:
+    path: /games/{platform}
+    controller: App\Controller\GamesController::showGamesByPlatform
+
+app_one_game:
+    path: /games/{platform}/{id}
+    controller: App\Controller\GamesController::showGameByPlatformAndId
