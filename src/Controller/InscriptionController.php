@@ -10,16 +10,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, EmailType, PasswordType};
+use App\Entity\UserData;
+use Doctrine\ORM\Tools\SchemaTool;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class InscriptionController extends AbstractController
-{
-    //#[Route('/inscription', name: 'app_inscription')]
-    public function inscription(Request $request, EntityManagerInterface $em): Response
+class InscriptionController extends AbstractController {
+
+    public function inscription(SessionInterface $session, EntityManagerInterface $em, Request $request): Response
     {
-        $session = $request->getSession();
-        $isConnected = $session->get('isConnected');
-        if($isConnected) {
-             return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected]);
+
+        if($session->get('isConnected')) {
+             return $this->redirectToRoute('app_home');
         } else {
             $form = $this->createFormBuilder()
                 ->add('pseudo', TextType::class,
@@ -57,18 +58,20 @@ class InscriptionController extends AbstractController
                             $em->persist($user);
                             $em->flush();
                             $session->set('Pseudo', $newUserPseudo);
-                            return $this->render('home/index.html.twig', ['isConnected' => $isConnected]);
+                            $this->setSessionID($em, $data, $session);
+                            $this->createTablePerUser($em, $session);
+                            return $this->redirectToRoute('app_home', ['isConnected' => $session->get('isConnected')]);
                         } else {
-                            return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'L\'email est déja pris.']);
+                            return $this->render('inscription/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'L\'email est déja pris.']);
                         }                
                     } else {
-                        return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'Les deux mots de passes ne correspondent pas.']);
+                        return $this->render('inscription/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'Les deux mots de passes ne correspondent pas.']);
                     }
                 } else {
-                    return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'Les deux emails ne correspondent pas.']);
+                    return $this->render('inscription/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'Les deux emails ne correspondent pas.']);
                 }
             } else {
-                return $this->render('inscription/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'formualire non soumis']);
+                return $this->render('inscription/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'formualire non soumis']);
             }
         }
     }
@@ -89,5 +92,20 @@ class InscriptionController extends AbstractController
         } else {
             return false;
         } 
+    }
+
+    private function setSessionID(EntityManagerInterface $em, Array $data, SessionInterface $session) {
+
+        $repo = $em->getRepository(User::class);
+        $user = $repo->findOneBy(['email' => $data['email']]);
+        $session->set('SessionID', $user->getId());
+    }
+    private function createTablePerUser(EntityManagerInterface $em, SessionInterface $session) {
+
+        $metadata = $em->getClassMetadata(UserData::class);
+        //dd($metadata);
+        $metadata->setPrimaryTable(array('name' => $metadata->getTableName() . $session->get('SessionID')));
+        $schemaTool = new SchemaTool($em);
+        $schemaTool->createSchema(array($metadata));
     }
 }

@@ -14,10 +14,13 @@ use Symfony\Component\Form\Extension\Core\Type\{TextType, EmailType, PasswordTyp
 class ConnexionController extends AbstractController
 {
     //#[Route('/connexion', name: 'app_connexion')]
-    public function index(Request $request, EntityManagerInterface $em): Response
+    public function index(SessionInterface $session, EntityManagerInterface $em, Request $request): Response
     {
-        $session = $request->getSession();
-        $isConnected = $session->get('isConnected');
+
+        if($session->get('isConnected')){
+            return $this->redirectToRoute('app_home');
+        }
+
         $form = $this->createFormBuilder()
                 ->add('email', EmailType::class, 
                     ['label' => 'Email :',
@@ -38,32 +41,29 @@ class ConnexionController extends AbstractController
                 if($this->isUsedEmail($em, $data)){
                     if($this->isGoodPassword($em, $data)){
                         $session->set('isConnected', true);
-                        $pseudo = getPseudoWithEmail($em, $data);
+                        $pseudo = $this->getPseudoWithEmail($em, $data);
                         $session->set('userPseudo', $pseudo);
-                        return $this->render('home/index.html.twig', ['isConnected' => $isConnected, 'userPseudo' => $session->get('userPseudo')]);
+                        return $this->redirectToRoute('app_home');
                     } else {
-                    return $this->render('connexion/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'Mot de passe invalide.']);
+                    return $this->render('connexion/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'Mot de passe invalide.']);
                     }
                 } else {
-                     return $this->render('connexion/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView(), 'form_return' => 'Aucun compte est associé a cet email.']);
+                     return $this->render('connexion/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'Aucun compte est associé a cet email.']);
                 }
-
-            } else {
-                return $this->render('connexion/index.html.twig', ['isConnected' => $isConnected, 'form' => $form->createView()]);
             }
+        return $this->render('connexion/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
         
         
     }
 
-    public function disconect(Request $request): Response 
+    public function disconect(SessionInterface $session): Response 
     {
-        $session = $request->getSession();
-        $isConnected = $session->get('isConnected');
-        if($isConnected) {
+
+        if($session->get('isConnected')) {
             $session->set('isConnected', false);
-             return $this->redirectToRoute('app_home', ['isConnected' => $isConnected]);
+             return $this->redirectToRoute('app_home');
         } else {
-            return $this->redirectToRoute('app_home', ['isConnected' => $isConnected]);
+            return $this->redirectToRoute('app_home');
         }
     }
 
