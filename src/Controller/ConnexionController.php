@@ -16,7 +16,6 @@ class ConnexionController extends AbstractController
     //#[Route('/connexion', name: 'app_connexion')]
     public function index(Request $request, EntityManagerInterface $em): Response
     {
-        dd(1);
         $session = $request->getSession();
         $isConnected = $session->get('isConnected');
         $form = $this->createFormBuilder()
