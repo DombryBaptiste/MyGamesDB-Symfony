@@ -1,3 +1,16 @@
-{% for game in games %}
-    <h1>{{ game.getName() }}</h1>
-{% endfor %}
+{% extends 'header.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/list_game_style.css") }}">
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {% for game in games %}
+        <a href="#"><img  class="game_img" src="{{ game.getImageUrl()}}"/></a>
+    {% endfor %}
+
+{% endblock %}
+
+

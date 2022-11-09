@@ -39,6 +39,33 @@ class GamesRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllGamesOrderByName(string $platform): array{
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT g
+            FROM App\Entity\Games g
+            WHERE g.platform = :p
+            ORDER BY g.name ASC'
+        )->setParameter('p', $platform);
+
+        return $query->getResult();
+    }
+
+    public function findAllGamesStartedByCharOrderByName(string $char, string $platform): array{
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT g
+            FROM App\Entity\Games g
+            WHERE g.platform = :p AND g.name LIKE :c
+            ORDER BY g.name ASC'
+        )->setParameter('p', $platform)
+        ->setParameter('c', $char.'%');
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Games[] Returns an array of Games objects
 //     */
