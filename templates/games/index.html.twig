@@ -7,8 +7,19 @@
 
 {% block body %}
     {{ parent() }}
+    {% set array = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', "EOT"] %}
+    {% for a in array %}
+        {% set arrayGame = ShowAllGamesByLetter(a , games) %}
+        {% for game in arrayGames %}
+            <a href="#"><img  class="game_img" src="{{ game.getImageUrl()}}"/></a>
+        {% endfor %}
+        {{ a }}
+        }
+
+    {% endfor%}
+
     {% for game in games %}
-        <a href="#"><img  class="game_img" src="{{ game.getImageUrl()}}"/></a>
+        
     {% endfor %}
 
 {% endblock %}

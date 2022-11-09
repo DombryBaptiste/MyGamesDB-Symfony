@@ -15,7 +15,7 @@ class GamesController extends AbstractController
     public function showGamesByPlatform(string $platform, EntityManagerInterface $em, SessionInterface $session): Response
     {
         $repo = $em->getRepository(Games::class);
-        $games = $repo->findAllGamesStartedByCharOrderByName("A" ,$platform);
+        $games = $repo->findAllGamesOrderByName($platform);
         return $this->render('games/index.html.twig', ['games' => $games, 'isConnected' => $session->get('isConnected')]);
     }
 
