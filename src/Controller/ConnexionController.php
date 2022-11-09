@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, EmailType, PasswordType};
+use App\Twig\Extension\AppExtension;
 
 class ConnexionController extends AbstractController
 {
