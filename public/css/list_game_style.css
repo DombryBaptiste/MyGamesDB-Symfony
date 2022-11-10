@@ -1,4 +1,29 @@
-.game_img{
+.img_DS_game{
 	width: 150px;
 	height: 150px;
+	margin: 5px;
+}
+
+.img_game{
+	height: 230px;
+	width: 150px;
+	margin: 5px;
+}
+
+.in_line_games{
+	display: flex;
+}
+.container_games{
+	display:flex;
+	flex-wrap: wrap;
+}
+
+.letter{
+	color: white;
+	font-weight: bold;
+	font-size: 40px;
+	font-family: monospace;
+	text-align: center;
+	vertical-align: middle;
+	margin: 50px 10px;
 }

@@ -23,12 +23,14 @@ class AppExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-             new TwigFunction('ShowAllGamesByLetter', [$this, 'ShowAllGamesByLetter'])
+             new TwigFunction('ShowAllGamesByLetter', [$this, 'ShowAllGamesByLetter']),
+             new TwigFunction('isNotEmptyArray', [$this, 'isNotEmptyArray']),
+             new TwigFunction('getClass', [$this, 'getClass'])
         ];
     }
 
-     public function ShowAllGamesByLetter($letter, $games)
-    {
+     public function ShowAllGamesByLetter($letter, $games): array
+     {
         $result = array();
         foreach ($games as $key) {
             $substring = substr($key->getName(), 0, 1);
@@ -37,5 +39,23 @@ class AppExtension extends AbstractExtension
             }
         }
         return $result;
+    }
+
+    public function isNotEmptyArray($array): bool
+    {
+        if(!$array){
+            return false;
+        }
+         else {
+             return true;
+         }
+    }
+
+    public function getClass($platform): string{
+        if($platform == "DS"){
+            return "img_DS_game";
+        } else {
+            return "img_game";
+        }
     }
 }

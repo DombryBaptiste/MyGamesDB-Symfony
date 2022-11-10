@@ -9,12 +9,19 @@
     {{ parent() }}
     {% set array = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', "EOT"] %}
     {% for a in array %}
+
         {% set arrayGames = ShowAllGamesByLetter(a , games) %}
-        {% for game in arrayGames %}
-            <a href="#"><img  class="game_img" src="{{ game.getImageUrl() }}"/></a>
-        {% endfor %}
-        {{ a }}
-        }
+        {% if isNotEmptyArray(arrayGames) %}
+            <div class="in_line_games">
+            <p class="letter">{{ a }}</p>
+                <div class="container_games">
+                    {% for game in arrayGames %}
+                         <a href="{{ path('app_one_game', {platform: game.getPlatform(), id: game.getId()}) }}"><img  class="{{ getClass(game.getPlatform()) }}" src="{{ game.getImageUrl() }}"/></a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
 
     {% endfor%}
 
@@ -23,5 +30,3 @@
     {% endfor %}
 
 {% endblock %}
-
-

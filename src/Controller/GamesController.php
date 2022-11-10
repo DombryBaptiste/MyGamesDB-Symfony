@@ -16,11 +16,11 @@ class GamesController extends AbstractController
     {
         $repo = $em->getRepository(Games::class);
         $games = $repo->findAllGamesOrderByName($platform);
-        return $this->render('games/index.html.twig', ['games' => $games, 'isConnected' => $session->get('isConnected')]);
+        return $this->render('games/index.html.twig', ['games' => $games, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
     }
 
-    public function showGameByPlatformAndId(string $platform, string $id): Response
+    public function showGameByPlatformAndId(SessionInterface $session): Response
     {
-        return new Response("<h1>".$platform." + ".$id."</h1>");
+        return $this->render('games/individualGame.html.twig', ['isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
     }
 }
