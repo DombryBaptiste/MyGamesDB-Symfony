@@ -25,7 +25,8 @@ class AppExtension extends AbstractExtension
         return [
              new TwigFunction('ShowAllGamesByLetter', [$this, 'ShowAllGamesByLetter']),
              new TwigFunction('isNotEmptyArray', [$this, 'isNotEmptyArray']),
-             new TwigFunction('getClass', [$this, 'getClass'])
+             new TwigFunction('getClass', [$this, 'getClass']),
+             new TwigFunction('dateToString', [$this, 'dateToString'])
         ];
     }
 
@@ -58,4 +59,12 @@ class AppExtension extends AbstractExtension
             return "img_game";
         }
     }
+
+    public function dateToString($date): string{
+        return $date->format('d/m/Y');
+    }
+
+    /*public function userGetGame($id): bool{
+
+    }*/
 }

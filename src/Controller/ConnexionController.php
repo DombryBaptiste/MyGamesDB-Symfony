@@ -41,6 +41,8 @@ class ConnexionController extends AbstractController
 
                 if($this->isUsedEmail($em, $data)){
                     if($this->isGoodPassword($em, $data)){
+                        $sessionID = $this->getSessionId($em, $data);
+                        $session->set('UserID', $sessionID);
                         $session->set('isConnected', true);
                         $pseudo = $this->getPseudoWithEmail($em, $data);
                         $session->set('userPseudo', $pseudo);
@@ -94,5 +96,11 @@ class ConnexionController extends AbstractController
         $repo = $em->getRepository(User::class);
         $user = $repo->findOneBy(['email' => $data['email']]);
         return $user->getPseudo();
+    }
+
+    private function getSessionId(EntityManagerInterface $em, array $data){
+        $repo = $em->getRepository(User::class);
+        $user = $repo->findOneBy(['email' => $data['email']]);
+        return $user->getId();
     }
 }

@@ -19,8 +19,16 @@ class GamesController extends AbstractController
         return $this->render('games/index.html.twig', ['games' => $games, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
     }
 
-    public function showGameByPlatformAndId(SessionInterface $session): Response
+    public function showGameByPlatformAndId(string $platform, string $id, EntityManagerInterface $em, SessionInterface $session): Response
     {
-        return $this->render('games/individualGame.html.twig', ['isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
+        $repoTableGame = $em->getRepository(Games::class);
+        $game = $repoTableGame->findOneBy(['id' => $id]);
+        $userHaveGame = $repoTableGame->gameIsPosseded($session->get('UserID'),$id);
+
+        return $this->render('games/individualGame.html.twig', ['haveGame' => $userHaveGame,'game' => $game, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
+    }
+
+    public function deleteGame(): Response{
+        return $this->redirectToRoute('app_home');
     }
 }

@@ -1,0 +1,24 @@
+.game{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.desc {
+    display: inline-flex;
+    margin-left: 100px;
+    width: 70%;
+}
+
+.img_game {
+    height: 400px;
+    width: 400px;
+}
+
+.desc_text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    color: white;
+    font-size: 20px;
+}

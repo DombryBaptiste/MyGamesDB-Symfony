@@ -7,5 +7,23 @@
 
 {% block body %}
     {{ parent() }}
+    <div class="game">
+    <div class="desc">
+        <img src="{{ game.getImageUrl() }}" class="img_game">
+        <div class="desc_text">
+            <h3>{{ game.getName() }}</h3>
+            <p class="description">{{ game.getDescription }}</p>
+            <p>Platforme : {{ game.getPlatform() }}</p>
+            <p>Date de sortie en france : {{  dateToString(game.getReleaseDate()) }} </p>
+            {% if isConnected %}
+                {% if haveGame %}
+                    <h1>Vous avez le jeu</h1>
+
+                {% else %}
+                    <h1>Vous n'avez pas le jeu</h1>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
 
 {% endblock %}
