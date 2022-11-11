@@ -16,7 +16,7 @@
             <p class="letter">{{ a }}</p>
                 <div class="container_games">
                     {% for game in arrayGames %}
-                         <a href="{{ path('app_one_game', {platform: game.getPlatform(), id: game.getId()}) }}"><img  class="{{ getClass(game.getPlatform()) }}" src="{{ game.getImageUrl() }}"/></a>
+                         <a href="{{ path('app_one_game', {platform: game.getPlatform(), id: game.getId()}) }}"><img class="{{ getClass(game.getPlatform()) }}" src="{{ game.getImageUrl() }}"/></a>
                     {% endfor %}
                 </div>
             </div>

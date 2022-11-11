@@ -5,11 +5,19 @@
 {% endblock %}
 {% block body %}
 {{ parent() }}
+	{% if isConnected %}
 	<div class="last_game_added">
 		<p class="text"> Derniers jeux ajoutés</p>
 		<div class="all_games">
 
+			{% for game in lastGames %}
+				<a href="{{ path('app_one_game', {platform: game['platform'], id: game['id']}) }}"><img src="{{ game['image_url'] }}" class="{{ getClass(game['platform']) }}" /></a>
+			{% endfor %}
+
 		</div>
 	</div>
+		{% else %}
+		<p class="text">Veuillez vous connecter pour voir vos jeux</p>
+	{% endif %}
 {% endblock %}
 

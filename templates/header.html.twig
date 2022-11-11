@@ -18,12 +18,13 @@
 		<div class="header_bar">
 			<a href="{{ path('app_home') }}"><img class="header_logo" src="{{ asset("img/M.png") }}" alt="Logo"></a>
 			<div class="recherche">
-				<form action="recherche.php" class="form_recherche" method="GET">
+				<!--<form action="{" class="form_recherche" method="GET">-->
+				{{ form_start(formBar, {'attr': {'class':'form_recherche'}}) }}
 					<div class="recherche_bar_loupe">	
-						<button class="button_loupe" type="submit"><img type="image" class="loupe" src="{{ asset("img/loupe.png") }}" alt="loupe"></button>
-						<input class="search_bar" type="text" name="recherche">
+						<button class="button_loupe" type="submit" ><img type="image" class="loupe" src="{{ asset("img/loupe.png") }}" alt="loupe"></button>
+						{{ form_widget(formBar.search) }}
 					</div>
-				</form>
+				{{ form_end(formBar) }}
 			</div>
 			<div class="connexion">
     			{% if isConnected %}
@@ -103,6 +104,9 @@
 		{% if form_return is defined %}
 			{{ form_return }}
 		{%  endif  %}
+		{% for message in app.flashes('error') %}
+			<p class="info_session">{{ message }}</p>
+		{% endfor %}
 	</p>
     {% endblock %}
 </body>

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Games;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -53,6 +54,30 @@ class GamesRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    /**
+     * @throws Exception
+     */
+    public function findLastGameAdded($id_user): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT * FROM user_data INNER JOIN games ON user_data.id_game = games.id WHERE user_data.id_user ='.$id_user.' ORDER BY added DESC LIMIT 18';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function findSearch($like): array{
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT * FROM games WHERE'.$like.' ORDER BY name';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        return $resultSet->fetchAllAssociative();
+    }
 
     /*public function findAllGamesStartedByCharOrderByName(string $char, string $platform): array{
         $entityManager = $this->getEntityManager();

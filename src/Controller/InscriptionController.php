@@ -17,6 +17,11 @@ class InscriptionController extends AbstractController {
 
     public function inscription(SessionInterface $session, EntityManagerInterface $em, Request $request): Response
     {
+        $formBar = $this->createFormBuilder()
+            ->add('search', TextType::class,
+                ['row_attr' => ['class' => 'search_bar']])
+            ->getForm();
+        $formBar->handleRequest($request);
 
         if($session->get('isConnected')) {
              return $this->redirectToRoute('app_home');
@@ -59,18 +64,22 @@ class InscriptionController extends AbstractController {
                             $session->set('Pseudo', $newUserPseudo);
                             $this->setSessionID($em, $data, $session);
                             //$this->createTablePerUser($em, $session);
-                            return $this->redirectToRoute('app_home', ['isConnected' => $session->get('isConnected')]);
+                            $this->addFlash('error', 'Le compte a été créer');
+                            return $this->redirectToRoute('app_home', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected')]);
                         } else {
-                            return $this->render('inscription/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'L\'email est déja pris.']);
+                            $this->addFlash('error', 'L\'email est déja pris.');
+                            return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
                         }                
                     } else {
-                        return $this->render('inscription/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'Les deux mots de passes ne correspondent pas.']);
+                        $this->addFlash('error', 'Les deux mots de passes ne correspondent pas.');
+                        return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
                     }
                 } else {
-                    return $this->render('inscription/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'Les deux emails ne correspondent pas.']);
+                    $this->addFlash('error', 'Les deux emails ne correspondent pas.');
+                    return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
                 }
             } else {
-                return $this->render('inscription/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'formualire non soumis']);
+                return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
             }
         }
     }

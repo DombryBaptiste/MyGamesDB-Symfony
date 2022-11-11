@@ -9,7 +9,8 @@ use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\{Response, RedirectResponse};
+use Symfony\Component\HttpFoundation\{Request, Response, RedirectResponse};
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class GamesController extends AbstractController
@@ -32,6 +33,7 @@ class GamesController extends AbstractController
         $repoUserData = $em->getRepository(UserData::class);
         $game = $repoTableGame->findOneBy(['id' => $id]);
         $userHaveGame = $repoUserData->gameIsPossessed($session->get('UserID'),$id);
+
 
         return $this->render('games/individualGame.html.twig', ['haveGame' => $userHaveGame,'game' => $game, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
     }

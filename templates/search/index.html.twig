@@ -1,0 +1,17 @@
+{% extends 'header.html.twig' %}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/search_style.css") }}">
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <p class="p_result_recherche">Résultat de la recherche : "{{ string }}"</p>
+    {% if games is defined %}
+        <div class="all_games">
+    {% for game in games %}
+        <a href="{{ path('app_one_game', {platform: game['platform'], id: game['id']}) }}"><img class="{{ getClass( game['platform']) }}" src="{{  game['image_url'] }}"/></a>
+    {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+

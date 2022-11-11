@@ -33,3 +33,7 @@ app_delete_game:
 app_add_game:
     path: /games/{platform}/{id}/add
     controller: App\Controller\GamesController::addGame
+
+app_search:
+    path: /search/{string}
+    controller: App\Controller\SearchController::index

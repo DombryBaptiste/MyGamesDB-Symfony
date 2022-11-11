@@ -22,6 +22,16 @@ class ConnexionController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
+        $formBar = $this->createFormBuilder()
+            ->add('search', TextType::class,
+                ['row_attr' => ['class' => 'search_bar']])
+            ->getForm();
+        $formBar->handleRequest($request);
+        if($formBar->isSubmitted() && $formBar->isValid()) {
+            $data = $formBar->getData();
+            return $this->redirectToRoute('app_search', ['string' => $data['search']]);
+        }
+
         $form = $this->createFormBuilder()
                 ->add('email', EmailType::class, 
                     ['label' => 'Email :',
@@ -48,13 +58,15 @@ class ConnexionController extends AbstractController
                         $session->set('userPseudo', $pseudo);
                         return $this->redirectToRoute('app_home');
                     } else {
-                    return $this->render('connexion/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'Mot de passe invalide.']);
+                        $this->addFlash('error', 'Mot de passe invalide.');
+                        return $this->render('connexion/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
                     }
                 } else {
-                     return $this->render('connexion/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'Aucun compte est associé a cet email.']);
+                    $this->addFlash('error', 'Aucun compte est associé a cet email.');
+                    return $this->render('connexion/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
                 }
             }
-        return $this->render('connexion/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
+        return $this->render('connexion/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
         
         
     }

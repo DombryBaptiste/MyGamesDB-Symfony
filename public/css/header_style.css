@@ -11,7 +11,7 @@ a {
 	position:  relative;
 }
 
-.search_bar {
+#form_search {
 	background-color: rgb(89,104,177);
 	color:  white;
 	font-weight: bold;
@@ -21,7 +21,7 @@ a {
 	height: 50px;
 }
 
-.search_bar:focus {
+#form_search:focus {
 	outline: none;
 }
 
@@ -142,3 +142,9 @@ ul{
 	color:white;
 	text-decoration: none;
 }
+
+.info_session {
+	text-align: center;
+	color: lightgoldenrodyellow;
+}
+

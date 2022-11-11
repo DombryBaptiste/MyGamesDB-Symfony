@@ -8,3 +8,27 @@
 	font-size: 40px;
 	text-align: center;
 }
+
+.all_games{
+	border: solid white;
+	border-width: 6px 0px 6px 0px;
+	display: inline-flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	padding: 5px;
+}
+
+.img_game {
+	height: 230px;
+	width: 150px;
+	margin: 5px 10px;
+}
+
+.img_DS_game {
+	height: 150px;
+	width: 150px;
+	margin: auto 10px auto 5px;
+}
+a{
+	display: inline-flex;
+}

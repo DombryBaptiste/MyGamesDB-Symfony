@@ -1,0 +1,25 @@
+.p_result_recherche {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    border-bottom: solid gray;
+    padding-bottom: 5px;
+}
+
+.all_games{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.img_DS_game{
+    width: 250px;
+    height: 250px;
+    margin: 5px;
+}
+
+.img_game{
+    height: 380px;
+    width: 250px;
+    margin: 5px;
+}

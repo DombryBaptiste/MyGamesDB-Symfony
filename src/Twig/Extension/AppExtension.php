@@ -61,8 +61,4 @@ class AppExtension extends AbstractExtension
     public function dateToString($date): string{
         return $date->format('d/m/Y');
     }
-
-    /*public function userGetGame($id): bool{
-
-    }*/
 }
