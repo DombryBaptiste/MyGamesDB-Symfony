@@ -21,13 +21,13 @@
 .img_game {
 	height: 230px;
 	width: 150px;
-	margin: 5px 10px;
+	margin: 5px 10px 5px 10px;
 }
 
 .img_DS_game {
 	height: 150px;
 	width: 150px;
-	margin: auto 10px auto 5px;
+	margin: 5px 10px 5px 10px;
 }
 a{
 	display: inline-flex;

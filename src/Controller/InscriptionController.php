@@ -22,6 +22,10 @@ class InscriptionController extends AbstractController {
                 ['row_attr' => ['class' => 'search_bar']])
             ->getForm();
         $formBar->handleRequest($request);
+        if($formBar->isSubmitted() && $formBar->isValid()) {
+            $data = $formBar->getData();
+            return $this->redirectToRoute('app_search', ['string' => $data['search']]);
+        }
 
         if($session->get('isConnected')) {
              return $this->redirectToRoute('app_home');
@@ -63,9 +67,8 @@ class InscriptionController extends AbstractController {
                             $em->flush();
                             $session->set('Pseudo', $newUserPseudo);
                             $this->setSessionID($em, $data, $session);
-                            //$this->createTablePerUser($em, $session);
-                            $this->addFlash('error', 'Le compte a été créer');
-                            return $this->redirectToRoute('app_home', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected')]);
+                            $this->addFlash('error', 'Le compte a été crée');
+                            return $this->redirectToRoute('app_home');
                         } else {
                             $this->addFlash('error', 'L\'email est déja pris.');
                             return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);

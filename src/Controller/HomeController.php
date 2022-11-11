@@ -24,14 +24,14 @@ class HomeController extends AbstractController {
             ['row_attr' => ['class' => 'search_bar']])
             ->getForm();
         $formBar->handleRequest($request);
-
-        $repo = $em->getRepository(Games::class);
-        $last_games = $repo->findLastGameAdded($session->get('UserID'));
         if($formBar->isSubmitted() && $formBar->isValid()) {
             $data = $formBar->getData();
             return $this->redirectToRoute('app_search', ['string' => $data['search']]);
         }
-        return $this->render('home/home.html.twig', ['error' => $session->get('error'),'formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo'), 'lastGames' => $last_games]);
+        $repo = $em->getRepository(Games::class);
+        $last_games = $repo->findLastGameAdded($session->get('UserID'));
+
+        return $this->render('home/home.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo'), 'lastGames' => $last_games]);
         
     }
 }

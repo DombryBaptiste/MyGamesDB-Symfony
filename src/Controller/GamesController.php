@@ -16,26 +16,47 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class GamesController extends AbstractController
 {
 
-    public function showGamesByPlatform(string $platform, ManagerRegistry $doctrine, SessionInterface $session): Response
+    public function showGamesByPlatform(string $platform, ManagerRegistry $doctrine, SessionInterface $session, Request $request): Response
     {
+        $formBar = $this->createFormBuilder()
+            ->add('search', TextType::class,
+                ['row_attr' => ['class' => 'search_bar']])
+            ->getForm();
+        $formBar->handleRequest($request);
+        if($formBar->isSubmitted() && $formBar->isValid()) {
+            $data = $formBar->getData();
+            return $this->redirectToRoute('app_search', ['string' => $data['search']]);
+        }
+
+
         $games = $doctrine->getManager()->getRepository(Games::class)->findAllGamesOrderByName($platform);
+
         /*$repo = $em->getRepository(Games::class);
         $games = $repo->findAllGamesOrderByName($platform);*/
-        return $this->render('games/index.html.twig', ['games' => $games, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
+        return $this->render('games/index.html.twig', ['formBar' => $formBar->createView(), 'games' => $games, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
     }
 
     /**
      * @throws Exception
      */
-    public function showGameByPlatformAndId(string $id, EntityManagerInterface $em, SessionInterface $session): Response
+    public function showGameByPlatformAndId(string $id, EntityManagerInterface $em, SessionInterface $session, Request $request): Response
     {
+        $formBar = $this->createFormBuilder()
+            ->add('search', TextType::class,
+                ['row_attr' => ['class' => 'search_bar']])
+            ->getForm();
+        $formBar->handleRequest($request);
+        if($formBar->isSubmitted() && $formBar->isValid()) {
+            $data = $formBar->getData();
+            return $this->redirectToRoute('app_search', ['string' => $data['search']]);
+        }
         $repoTableGame = $em->getRepository(Games::class);
         $repoUserData = $em->getRepository(UserData::class);
         $game = $repoTableGame->findOneBy(['id' => $id]);
         $userHaveGame = $repoUserData->gameIsPossessed($session->get('UserID'),$id);
 
 
-        return $this->render('games/individualGame.html.twig', ['haveGame' => $userHaveGame,'game' => $game, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
+        return $this->render('games/individualGame.html.twig', ['formBar' => $formBar->createView(), 'haveGame' => $userHaveGame,'game' => $game, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
     }
 
     public function deleteGame(string $platform, string $id, EntityManagerInterface $em, SessionInterface $session): RedirectResponse
