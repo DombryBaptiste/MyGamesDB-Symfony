@@ -51,16 +51,8 @@ class GamesRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
-    public function gameIsPosseded($id_user, $id_game):bool{
-        $conn = $this->getEntityManager()->getConnection();
 
-        $sql = 'SELECT *
-            FROM user_data'.$id_user.'
-            WHERE id_game = '.$id_game;
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery();
-        return $result->rowCount() == 1;
-    }
+
     public function findAllGamesStartedByCharOrderByName(string $char, string $platform): array{
         $entityManager = $this->getEntityManager();
 

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\UserData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,44 @@ class UserDataRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function removeGame($id_user, $id_game){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'DELETE FROM user_data'.$id_user.' WHERE id_game = '.$id_game;
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->executeQuery();
+        //return $result->fetchAllAssociative();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function addGame($id_user, $id_game){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'INSERT INTO user_data'.$id_user.'(id_game) VALUES ('.$id_game.')';
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->executeQuery();
+        //return $result->fetchAllAssociative();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function gameIsPossessed($id_user, $id_game): bool
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT * FROM user_data WHERE id_game = '.$id_game.' AND id_user = '.$id_user;
+            $stmt = $conn->prepare($sql);
+            $result = $stmt->executeQuery();
+            return $result->rowCount() == 1;
+
     }
 
 //    /**

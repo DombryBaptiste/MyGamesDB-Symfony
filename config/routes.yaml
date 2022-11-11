@@ -27,5 +27,9 @@ app_one_game:
     controller: App\Controller\GamesController::showGameByPlatformAndId
 
 app_delete_game:
-    path: /games/{platform}/{id}
+    path: /games/{platform}/{id}/delete
     controller: App\Controller\GamesController::deleteGame
+
+app_add_game:
+    path: /games/{platform}/{id}/add
+    controller: App\Controller\GamesController::addGame

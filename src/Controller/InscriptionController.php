@@ -59,7 +59,7 @@ class InscriptionController extends AbstractController {
                             $em->flush();
                             $session->set('Pseudo', $newUserPseudo);
                             $this->setSessionID($em, $data, $session);
-                            $this->createTablePerUser($em, $session);
+                            //$this->createTablePerUser($em, $session);
                             return $this->redirectToRoute('app_home', ['isConnected' => $session->get('isConnected')]);
                         } else {
                             return $this->render('inscription/index.html.twig', ['isConnected' => $session->get('isConnected'), 'form' => $form->createView(), 'form_return' => 'L\'email est déja pris.']);
