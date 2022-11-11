@@ -9,7 +9,7 @@
     {{ parent() }}
     <div class="game">
     <div class="desc">
-        <img src="{{ game.imageUrl }}" class="img_game">
+        <img src="{{ game.imageUrl }}" class="img_game" alt="image du jeu">
         <div class="desc_text">
             <h3>{{ game.name }}</h3>
             <p class="description">{{ game.description }}</p>
@@ -17,10 +17,10 @@
             <p>Date de sortie en france : {{  dateToString(game.releaseDate) }} </p>
             {% if isConnected %}
                 {% if haveGame %}
-                    <button onclick="window.location.href='{{ path('app_delete_game', {platform: game.platform, id: game.id}) }}'">delete</button>
+                   <img class="plus_minus" src=" {{ asset('img/minus.png') }}" alt="plus" onclick="window.location.href='{{ path('app_delete_game', {platform: game.platform, id: game.id}) }}'"/>
 
                 {% else %}
-                    <button onclick="window.location.href='{{ path('app_add_game', {platform: game.platform, id: game.id}) }}'">add</button>
+                    <img class="plus_minus" src=" {{ asset('img/plus.png') }}" alt="minus" onclick="window.location.href='{{ path('app_add_game', {platform: game.platform, id: game.id}) }}'"/>
                 {% endif %}
             {% endif %}
         </div>

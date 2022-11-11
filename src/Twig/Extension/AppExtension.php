@@ -2,11 +2,9 @@
 
 namespace App\Twig\Extension;
 
-use App\Entity\Games;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Symfony\Component\HttpFoundation\Request;
 
 class AppExtension extends AbstractExtension
 {
@@ -36,7 +34,7 @@ class AppExtension extends AbstractExtension
         foreach ($games as $key) {
             $substring = substr($key->getName(), 0, 1);
             if($substring == $letter){
-                array_push($result, $key);
+                $result[] = $key;
             }
         }
         return $result;
