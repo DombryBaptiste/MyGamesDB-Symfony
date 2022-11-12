@@ -1,0 +1,24 @@
+{% extends 'header.html.twig' %}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/profil_style.css") }}">
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="account">
+        <p class="p_account"><span class="span_account">Mon Compte</span></p>
+        <p class="p_pseudo">
+            <span class="span_pseudo_title">Pseudo</span>
+            <span class="span_pseudo" onclick="document.location.href='{{ path('app_change_pseudo') }}'">{{ session.get('userPseudo') }}</span>
+        <p>
+        <p class="p_email">
+            <span class="span_email_title">Email</span>
+            <span class="span_email" onclick="document.location.href='{{ path('app_change_email') }}'">{{ session.get('userEmail') }}</span>
+        <p>
+        <p class="p_mdp">
+            <span class="span_mdp" onclick="document.location.href='change_mdp.php'">Modifier mot de passe</span>
+            <span class="span_mdp" onclick="document.location.href='suppr_acc.php'">Suppression du compte</span>
+        <p>
+    </div>
+{% endblock %}
+

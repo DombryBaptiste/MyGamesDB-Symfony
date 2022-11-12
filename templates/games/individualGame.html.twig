@@ -15,7 +15,7 @@
             <p class="description">{{ game.description }}</p>
             <p>Platforme : {{ game.platform }}</p>
             <p>Date de sortie en france : {{  dateToString(game.releaseDate) }} </p>
-            {% if isConnected %}
+            {% if session.get('isConnected') %}
                 {% if haveGame %}
                    <img class="plus_minus" src=" {{ asset('img/minus.png') }}" alt="plus" onclick="window.location.href='{{ path('app_delete_game', {platform: game.platform, id: game.id}) }}'"/>
 

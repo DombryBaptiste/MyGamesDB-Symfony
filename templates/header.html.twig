@@ -27,17 +27,17 @@
 				{{ form_end(formBar) }}
 			</div>
 			<div class="connexion">
-    			{% if isConnected %}
+    			{% if session.get('isConnected') %}
         			<ul class="listeprofil">
 						<li class="li_profil">
 							<div class="ongletPROFIL">
-								{% if userPseudo is defined %}
-									{{ userPseudo }}
+								{% if session.get('userPseudo') is defined %}
+									{{ session.get('userPseudo') }}
 								{% endif %}			
 							</div>
 							<div class="deroulantPROFIL">
 								<ul class="listeoptionPROFIL">
-									<a href="profil_user.php" class="link_profil"><li class="option">Mon profil</li></a>
+									<a href="{{ path('app_profil') }}" class="link_profil"><li class="option">Mon profil</li></a>
 									<a href="collection_user.php" class="link_profil"><li class="option">Ma collection</li></a>
 									<a href="{{ path('app_disconect_user') }}" class="link_profil"><li class="option">Se deconnecter</li></a>
 								</ul>

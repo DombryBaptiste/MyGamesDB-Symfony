@@ -33,7 +33,7 @@ class GamesController extends AbstractController
 
         /*$repo = $em->getRepository(Games::class);
         $games = $repo->findAllGamesOrderByName($platform);*/
-        return $this->render('games/index.html.twig', ['formBar' => $formBar->createView(), 'games' => $games, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
+        return $this->render('games/index.html.twig', ['formBar' => $formBar->createView(), 'games' => $games, 'session' => $session]);
     }
 
     /**
@@ -56,7 +56,7 @@ class GamesController extends AbstractController
         $userHaveGame = $repoUserData->gameIsPossessed($session->get('UserID'),$id);
 
 
-        return $this->render('games/individualGame.html.twig', ['formBar' => $formBar->createView(), 'haveGame' => $userHaveGame,'game' => $game, 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo')]);
+        return $this->render('games/individualGame.html.twig', ['formBar' => $formBar->createView(), 'haveGame' => $userHaveGame,'game' => $game, 'session' => $session]);
     }
 
     public function deleteGame(string $platform, string $id, EntityManagerInterface $em, SessionInterface $session): RedirectResponse

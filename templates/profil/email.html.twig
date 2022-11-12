@@ -1,0 +1,16 @@
+{% extends 'header.html.twig' %}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/profil_style.css") }}">
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="account">
+        <p class="p_account"><span class="span_account">Choisir un nouvel Email</span></p>
+        {{ form_start(formEmail, {'attr': {'class':'form_new_pseudo'}}) }}
+        {{ form_widget(formEmail.email) }}
+        <input class="new_pseudo_input" type="submit" value ="Modifier" name="Modifier">
+        {{ form_end(formEmail) }}
+    </div>
+{% endblock %}
+

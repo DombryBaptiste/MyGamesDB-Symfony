@@ -37,3 +37,15 @@ app_add_game:
 app_search:
     path: /search/{string}
     controller: App\Controller\SearchController::index
+
+app_profil:
+    path: /profil
+    controller: App\Controller\ProfilController::index
+
+app_change_pseudo:
+    path: /profil/change_pseudo
+    controller: App\Controller\ProfilController::changePseudo
+
+app_change_email:
+    path: /profil/change_email
+    controller: App\Controller\ProfilController::changeEmail

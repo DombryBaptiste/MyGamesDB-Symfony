@@ -38,6 +38,6 @@ class SearchController extends AbstractController
         $like = substr($like, 0, strlen($like) - 3);
         $repo = $em->getRepository(Games::class);
         $games = $repo->findSearch($like);
-        return $this->render('search/index.html.twig', ['isConnected' => $session->get('isConnected'), 'string' => $string, 'games' => $games, 'formBar' => $formBar->createView()]);
+        return $this->render('search/index.html.twig', ['session' => $session, 'string' => $string, 'games' => $games, 'formBar' => $formBar->createView()]);
     }
 }

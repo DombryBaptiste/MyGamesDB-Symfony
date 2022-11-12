@@ -29,9 +29,11 @@ class HomeController extends AbstractController {
             return $this->redirectToRoute('app_search', ['string' => $data['search']]);
         }
         $repo = $em->getRepository(Games::class);
-        $last_games = $repo->findLastGameAdded($session->get('UserID'));
-
-        return $this->render('home/home.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'userPseudo' => $session->get('userPseudo'), 'lastGames' => $last_games]);
+        if($session->get('isConnected')) {
+            $last_games = $repo->findLastGameAdded($session->get('UserID'));
+            return $this->render('home/home.html.twig', ['formBar' => $formBar->createView(), 'session' => $session, 'lastGames' => $last_games]);
+        }
+        return $this->render('home/home.html.twig', ['formBar' => $formBar->createView(), 'session' => $session]);
         
     }
 }

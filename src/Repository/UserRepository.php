@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,25 @@ class UserRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function changePseudo($pseudo, $userid){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "UPDATE user SET pseudo = '".$pseudo."' WHERE id = ".$userid;
+        $stmt = $conn->prepare($sql);
+        $stmt->executeQuery();
+    }
+
+    public function changeEmail($email, $userid){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "UPDATE user SET email = '".$email."' WHERE id = ".$userid;
+        $stmt = $conn->prepare($sql);
+        $stmt->executeQuery();
     }
 
 //    /**

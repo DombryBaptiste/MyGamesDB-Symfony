@@ -56,17 +56,18 @@ class ConnexionController extends AbstractController
                         $session->set('isConnected', true);
                         $pseudo = $this->getPseudoWithEmail($em, $data);
                         $session->set('userPseudo', $pseudo);
+                        $session->set('userEmail', $userEmailConnexion);
                         return $this->redirectToRoute('app_home');
                     } else {
                         $this->addFlash('error', 'Mot de passe invalide.');
-                        return $this->render('connexion/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
+                        return $this->render('connexion/index.html.twig', ['formBar' => $formBar->createView(), 'session' => $session, 'form' => $form->createView()]);
                     }
                 } else {
                     $this->addFlash('error', 'Aucun compte est associé a cet email.');
-                    return $this->render('connexion/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
+                    return $this->render('connexion/index.html.twig', ['formBar' => $formBar->createView(), 'session' => $session, 'form' => $form->createView()]);
                 }
             }
-        return $this->render('connexion/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
+        return $this->render('connexion/index.html.twig', ['formBar' => $formBar->createView(), 'session' => $session, 'form' => $form->createView()]);
         
         
     }

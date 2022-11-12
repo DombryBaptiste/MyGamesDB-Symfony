@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
 {{ parent() }}
-	{% if isConnected %}
+	{% if session.get('isConnected') %}
 	<div class="last_game_added">
 		<p class="text"> Derniers jeux ajoutés</p>
 		<div class="all_games">

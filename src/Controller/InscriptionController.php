@@ -71,18 +71,18 @@ class InscriptionController extends AbstractController {
                             return $this->redirectToRoute('app_home');
                         } else {
                             $this->addFlash('error', 'L\'email est déja pris.');
-                            return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
+                            return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'session' => $session, 'form' => $form->createView()]);
                         }                
                     } else {
                         $this->addFlash('error', 'Les deux mots de passes ne correspondent pas.');
-                        return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
+                        return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'session' => $session, 'form' => $form->createView()]);
                     }
                 } else {
                     $this->addFlash('error', 'Les deux emails ne correspondent pas.');
-                    return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
+                    return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'session' => $session, 'form' => $form->createView()]);
                 }
             } else {
-                return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'isConnected' => $session->get('isConnected'), 'form' => $form->createView()]);
+                return $this->render('inscription/index.html.twig', ['formBar' => $formBar->createView(), 'session' => $session, 'form' => $form->createView()]);
             }
         }
     }
