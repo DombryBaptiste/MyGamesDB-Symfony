@@ -16,8 +16,8 @@
             <span class="span_email" onclick="document.location.href='{{ path('app_change_email') }}'">{{ session.get('userEmail') }}</span>
         <p>
         <p class="p_mdp">
-            <span class="span_mdp" onclick="document.location.href='change_mdp.php'">Modifier mot de passe</span>
-            <span class="span_mdp" onclick="document.location.href='suppr_acc.php'">Suppression du compte</span>
+            <span class="span_mdp" onclick="document.location.href='{{ path('app_change_pass') }}'">Modifier mot de passe</span>
+            <span class="span_mdp" onclick="document.location.href='{{ path('app_suppr_acc') }}'">Suppression du compte</span>
         <p>
     </div>
 {% endblock %}

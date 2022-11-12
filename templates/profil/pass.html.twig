@@ -1,0 +1,23 @@
+{% extends 'header.html.twig' %}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/profil_style.css") }}">
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="account">
+        <p class="p_account"><span class="span_account">Changement de mot de passe</span></p>
+        {{ form_start(formPass, {'attr': {'class':'form_new_pseudo'}}) }}
+        <div class="mdp">
+            <p class="p_mdp">Ancien Mot de passe :</p>
+            {{ form_widget(formPass.oldPass) }}
+            <p class="p_mdp">Nouveau Mot de passe :</p>
+            {{ form_widget(formPass.newPass) }}
+            <p class="p_mdp">Confirmer nouveau Mot de passe :</p>
+            {{ form_widget(formPass.newPassConfirm) }}
+        </div>
+        <input class="new_pseudo_input" type="submit" value ="Modifier" name="form_changemdp">
+        {{ form_end(formPass) }}
+    </div>
+{% endblock %}
+

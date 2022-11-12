@@ -49,3 +49,11 @@ app_change_pseudo:
 app_change_email:
     path: /profil/change_email
     controller: App\Controller\ProfilController::changeEmail
+
+app_suppr_acc:
+    path: /profil/suppr_acc
+    controller: App\Controller\ProfilController::deleteUser
+
+app_change_pass:
+    path: /profil/change_pass
+    controller: App\Controller\ProfilController::changePassword

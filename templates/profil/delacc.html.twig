@@ -1,0 +1,17 @@
+{% extends 'header.html.twig' %}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/profil_style.css") }}">
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    <div class="account">
+        <p class="p_account"><span class="span_account">SUPPRESSION DU COMPTE</span></p>
+        {{ form_start(formAcc, {'attr': {'class':'form_new_pseudo'}}) }}
+            {{ form_widget((formAcc))  }}
+            <p class="p_mdp">Etes vous sur de vouloir supprimer votre compte ? Cette action est irréversible</p>
+            <input class="new_pseudo_input" type="submit" value ="Supprimer">
+        {{ form_end(formAcc) }}
+    </div>
+{% endblock %}
+

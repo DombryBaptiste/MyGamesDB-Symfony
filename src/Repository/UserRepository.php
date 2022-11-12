@@ -59,6 +59,28 @@ class UserRepository extends ServiceEntityRepository
         $stmt->executeQuery();
     }
 
+    /**
+     * @throws Exception
+     */
+    public function deleteUser($iduser){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "DELETE FROM user_data WHERE id_user = ".$iduser;
+        $stmt = $conn->prepare($sql);
+        $stmt->executeQuery();
+
+        $sql = "DELETE FROM user WHERE id = ".$iduser;
+        $stmt = $conn->prepare($sql);
+        $stmt->executeQuery();
+    }
+
+    public function changePass($iduser, $pass){
+        $conn = $this->getEntityManager()->getConnection();
+        $shapass = sha1($pass);
+        $sql = "UPDATE user SET password = '".$shapass."' WHERE id = ".$iduser;
+        $stmt = $conn->prepare($sql);
+        $stmt->executeQuery();
+    }
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
