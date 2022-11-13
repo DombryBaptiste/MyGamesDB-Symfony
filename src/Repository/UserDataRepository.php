@@ -6,6 +6,7 @@ use App\Entity\UserData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
+use JetBrains\PhpStorm\NoReturn;
 
 /**
  * @extends ServiceEntityRepository<UserData>
@@ -52,6 +53,20 @@ class UserDataRepository extends ServiceEntityRepository
             $result = $stmt->executeQuery();
             return $result->rowCount() == 1;
 
+    }
+
+    public function getGamesByIDUser($id){
+        $temp = "SELECT * FROM user_data INNER JOIN games ON user_data.id_game = games.id WHERE user_data.id_user = 11";
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT g
+            FROM App\Entity\UserData ud
+            
+            INNER JOIN App\Entity\Games g
+            WITH ud.id_game = g.id
+            WHERE ud.id_user =:id
+            ORDER BY g.name'
+        )->setParameter('id', $id);
+        return $query->getResult();
     }
 
 //    /**

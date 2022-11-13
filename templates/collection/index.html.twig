@@ -1,0 +1,23 @@
+{% extends 'header.html.twig' %}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("css/collection_style.css") }}">
+{% endblock %}
+{% block body %}
+    {{ parent() }}
+    {% for p in platform %}
+        {{ haveOneGameOnPlatform(p, games) }}
+        {% if haveOneGameOnPlatform(p, games) %}
+            <p class= "platform_collection">{{ p.platform }}</p>
+            <div class ="game_by_platform">
+                {% for g in games %}
+                    {% if p.platform ==  g.platform %}
+                        <img class="{{ getClass(p.platform) }}" src="{{ g.imageurl }}">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
+

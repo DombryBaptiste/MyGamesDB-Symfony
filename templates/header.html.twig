@@ -18,7 +18,6 @@
 		<div class="header_bar">
 			<a href="{{ path('app_home') }}"><img class="header_logo" src="{{ asset("img/M.png") }}" alt="Logo"></a>
 			<div class="recherche">
-				<!--<form action="{" class="form_recherche" method="GET">-->
 				{{ form_start(formBar, {'attr': {'class':'form_recherche'}}) }}
 					<div class="recherche_bar_loupe">	
 						<button class="button_loupe" type="submit" ><img type="image" class="loupe" src="{{ asset("img/loupe.png") }}" alt="loupe"></button>
@@ -38,7 +37,7 @@
 							<div class="deroulantPROFIL">
 								<ul class="listeoptionPROFIL">
 									<a href="{{ path('app_profil') }}" class="link_profil"><li class="option">Mon profil</li></a>
-									<a href="collection_user.php" class="link_profil"><li class="option">Ma collection</li></a>
+									<a href="{{ path('app_collection') }}" class="link_profil"><li class="option">Ma collection</li></a>
 									<a href="{{ path('app_disconect_user') }}" class="link_profil"><li class="option">Se deconnecter</li></a>
 								</ul>
 							</div>

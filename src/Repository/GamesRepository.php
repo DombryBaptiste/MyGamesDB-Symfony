@@ -79,6 +79,31 @@ class GamesRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
+    /**
+     * @throws Exception
+     */
+    public function getPlatforms(): array{
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT g.platform
+            FROM App\Entity\Games g
+            GROUP BY g.platform'
+        );
+        return $query->getResult();
+    }
+
+    public function getGamesUser($userid): array{
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT x, g
+            FROM App\Entity\UserData x
+            INNER JOIN App\Entity\Games g
+            ON x.id_game = g.id
+            WHERE x.id_user = :id
+            ORDER BY g.name'
+        )->setParameter('id', $userid);
+        dd($query->getResult());
+        return $query->getResult();
+    }
+
     /*public function findAllGamesStartedByCharOrderByName(string $char, string $platform): array{
         $entityManager = $this->getEntityManager();
 

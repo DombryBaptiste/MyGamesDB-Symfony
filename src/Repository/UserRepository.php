@@ -81,6 +81,7 @@ class UserRepository extends ServiceEntityRepository
         $stmt = $conn->prepare($sql);
         $stmt->executeQuery();
     }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

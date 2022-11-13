@@ -57,3 +57,7 @@ app_suppr_acc:
 app_change_pass:
     path: /profil/change_pass
     controller: App\Controller\ProfilController::changePassword
+
+app_collection:
+    path: /collection
+    controller: App\Controller\CollectionController::index

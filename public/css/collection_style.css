@@ -1,0 +1,28 @@
+.platform_collection {
+    color: white;
+    font-weight: bold;
+    font-size: 40px;
+    font-family: monospace;
+    text-align: center;
+    vertical-align: middle;
+    margin: 50px 10px;
+}
+.game_by_platform {
+    display: inline-flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.img_DS_game{
+    height: 150px;
+    width: 150px;
+    margin: 5px 5px 5px 10px;
+}
+
+.img_game{
+    height: 230px;
+    width: 150px;
+    margin: 5px 10px;
+}
+
+

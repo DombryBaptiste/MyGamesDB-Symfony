@@ -24,7 +24,8 @@ class AppExtension extends AbstractExtension
              new TwigFunction('ShowAllGamesByLetter', [$this, 'ShowAllGamesByLetter']),
              new TwigFunction('isNotEmptyArray', [$this, 'isNotEmptyArray']),
              new TwigFunction('getClass', [$this, 'getClass']),
-             new TwigFunction('dateToString', [$this, 'dateToString'])
+             new TwigFunction('dateToString', [$this, 'dateToString']),
+             new TwigFunction('haveOneGameOnPlatform' , [$this, 'haveOneGameOnPlatform'])
         ];
     }
 
@@ -58,7 +59,20 @@ class AppExtension extends AbstractExtension
         }
     }
 
-    public function dateToString($date): string{
+    public function dateToString($date): string
+    {
         return $date->format('d/m/Y');
     }
+
+    public function haveOneGameOnPlatform($p, $g): bool
+    {
+        foreach($g as $game){
+            if($game->getPlatform() == $p['platform']){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
